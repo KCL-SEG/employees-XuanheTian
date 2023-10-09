@@ -1,12 +1,10 @@
-"""Employee pay calculator."""
-"""ENTER YOUR SOLUTION HERE!"""
-
 class Employee:
 
-    def __init__(self, name, payment_method, commission_type = None):
+    def __init__(self, name, payment_method, commission_type=None):
         self.name = name
         self.payment_method = payment_method
         self.commission_type = commission_type
+
     def get_pay(self):
         base_payment = self.payment_method.get_pay()
         commission = 0
@@ -14,53 +12,72 @@ class Employee:
             commission = self.commission_type.get_commssion()
         return base_payment + commission
 
-    
     def __str__(self):
-        return (f"{self.name} works on a {self.payment_method } of {self.base_payment}. Their total pay is {self.get_pay()}.")
+        base_desc = f"{self.name} works on a {self.payment_method.description()}"
+
+        if self.commission_type:
+            base_desc += f" and {self.commission_type.description()}"
+        
+        base_desc += f". Their total pay is {self.get_pay()}."
+        return base_desc
 
 
-class salary_pay :
-    def __init__ (self, monthly_salary):
+class SalaryPay:
+    def __init__(self, monthly_salary):
         self.monthly_salary = monthly_salary
+
     def get_pay(self):
         return self.monthly_salary
+    
+    def description(self):
+        return f"a monthly salary of {self.monthly_salary}"
 
 
-class Hourly_pay :
-    def __init__ (self, hourly_wage , worked_hours):
+class HourlyPay:
+    def __init__(self, hourly_wage, worked_hours):
         self.hourly_wage = hourly_wage
         self.worked_hours = worked_hours
-    def get_pay(self):
-        return self.hourly_wage * worked_hours
 
-class bonus_commission:
+    def get_pay(self):
+        return self.hourly_wage * self.worked_hours
+    
+    def description(self):
+        return f"a contract of {self.worked_hours} hours at {self.hourly_wage}/hour"
+
+
+class BonusCommission:
     def __init__(self, fixed_bonus):
         self.fixed_bonus = fixed_bonus
+
     def get_commssion(self):
         return self.fixed_bonus
+    
+    def description(self):
+        return f"receives a bonus commission of {self.fixed_bonus}"
 
-class contract_commission:
-    def __init__(self, number_of_contract, contract_per_commission ):
+
+class ContractCommission:
+    def __init__(self, number_of_contract, contract_per_commission):
         self.number_of_contract = number_of_contract
         self.contract_per_commission = contract_per_commission
+
     def get_commssion(self):
-        return self.number_of_contract * contract_per_commission
+        return self.number_of_contract * self.contract_per_commission
     
+    def description(self):
+        return f"receives a commission for {self.number_of_contract} contract(s) at {self.contract_per_commission}/contract"
 
-# Billie works on a monthly salary of 4000.  Their total pay is 4000.
+
+# Example usage:
 billie = Employee('Billie', SalaryPay(4000))
+charlie = Employee('Charlie', HourlyPay(25, 100))
+renee = Employee('Renee', SalaryPay(3000), ContractCommission(4, 200))
+jan = Employee('Jan', HourlyPay(25, 150), ContractCommission(3, 220))
+robbie = Employee('Robbie', SalaryPay(2000), BonusCommission(1500))
+ariel = Employee('Ariel', HourlyPay(30, 120), BonusCommission(600))
 
-# Charlie works on a contract of 100 hours at 25/hour.  Their total pay is 2500.
-charlie = Employee('Charlie')
+# Testing
+employees = [billie, charlie, renee, jan, robbie, ariel]
 
-# Renee works on a monthly salary of 3000 and receives a commission for 4 contract(s) at 200/contract.  Their total pay is 3800.
-renee = Employee('Renee')
-
-# Jan works on a contract of 150 hours at 25/hour and receives a commission for 3 contract(s) at 220/contract.  Their total pay is 4410.
-jan = Employee('Jan')
-
-# Robbie works on a monthly salary of 2000 and receives a bonus commission of 1500.  Their total pay is 3500.
-robbie = Employee('Robbie')
-
-# Ariel works on a contract of 120 hours at 30/hour and receives a bonus commission of 600.  Their total pay is 4200.
-ariel = Employee('Ariel')
+for employee in employees:
+    print(employee)
