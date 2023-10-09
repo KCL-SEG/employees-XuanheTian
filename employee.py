@@ -68,16 +68,3 @@ class ContractCommission:
         return f"receives a commission for {self.number_of_contract} contract(s) at {self.contract_per_commission}/contract"
 
 
-# Example usage:
-billie = Employee('Billie', SalaryPay(4000))
-charlie = Employee('Charlie', HourlyPay(25, 100))
-renee = Employee('Renee', SalaryPay(3000), ContractCommission(4, 200))
-jan = Employee('Jan', HourlyPay(25, 150), ContractCommission(3, 220))
-robbie = Employee('Robbie', SalaryPay(2000), BonusCommission(1500))
-ariel = Employee('Ariel', HourlyPay(30, 120), BonusCommission(600))
-
-# Testing
-employees = [billie, charlie, renee, jan, robbie, ariel]
-
-for employee in employees:
-    print(employee)
