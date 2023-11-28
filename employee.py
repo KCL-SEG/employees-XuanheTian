@@ -13,14 +13,13 @@ class Employee:
         return base_payment + commission
 
     def __str__(self):
-        base_desc = f"{self.name} works on a {self.payment_method.description()}"
+        base_desc = f"{self.name} works on {self.payment_method.description()}"
 
         if self.commission_type:
             base_desc += f" and {self.commission_type.description()}"
         
         base_desc += f". Their total pay is {self.get_pay()}."
         return base_desc
-
 
 class SalaryPay:
     def __init__(self, monthly_salary):
